@@ -45,15 +45,28 @@ const generateCalendar = (currentMonth) => {
 
   return calendarData;
 };
+const getDateString = (day) => {
+  if (day) {
+    const dateString = `${day.getDate().toString().padStart(2, "0")}-${(
+      day.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${day.getFullYear()}`;
+    return dateString;
+  }else{
+    return ""
+  }
+};
 
 const App = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDates, setSelectedDates] = useState([]);
+  const [selectedDates, setSelectedDates] = useState([getDateString(new Date())]);
 
   const handleMonthChange = (increment) => {
     const newMonth = new Date(currentMonth);
     newMonth.setMonth(newMonth.getMonth() + increment);
     setCurrentMonth(newMonth);
+    console.log(selectedDates);
   };
 
   const calendarData = generateCalendar(currentMonth);
@@ -75,18 +88,7 @@ const App = () => {
     }
   };
 
-  const getDateString = (day) => {
-    if (day) {
-      const dateString = `${day.getDate().toString().padStart(2, "0")}-${(
-        day.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}-${day.getFullYear()}`;
-      return dateString;
-    }else{
-      return ""
-    }
-  };
+  
   return (
     <div className="main-container">
       <div id="container">
